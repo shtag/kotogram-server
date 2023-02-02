@@ -1,8 +1,8 @@
 import data from "./data.js";
 
 class User{
-    constructor(login, password) {
-        this.login = login;
+    constructor(name, password) {
+        this.name = name;
         this.password = password;
         this.profilePosts = [];
         this.id = data.maxId;

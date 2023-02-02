@@ -3,7 +3,7 @@ const data = {
     users: [ 
         {
             id: 1,
-            login: 'shtag',
+            name: 'shtag',
             password: 'shtag',
             profilePosts: [
                 
