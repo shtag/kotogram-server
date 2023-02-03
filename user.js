@@ -9,6 +9,7 @@ class User{
         data.maxId++;
         this.subscript = [];
         this.followers = [];
+        this.sessions = [];
     }
 }
 
