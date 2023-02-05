@@ -2,10 +2,10 @@ import data from './data.js';
 
 class User {
     constructor(name, password) {
+        this.id = User.maxUserId;
         this.username = name;
         this.password = password;
         this.profilePosts = [];
-        this.id = User.maxUserId;
         User.maxUserId++;
         this.subscriptions = [];
         this.sessions = [];
