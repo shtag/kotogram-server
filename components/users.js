@@ -102,5 +102,15 @@ const getFollowers = (req, res) => {
     }
 };
 
+const getUserList = (req, res) => {
+    const list = req.body.list;
+    if (list) {
+        const userList = users.filter(user => list.includes(user.username));
+        res.status(200).json(userList).send();
+    } else {
+        res.status(404).send("User not found");
+    }
+};
 
-export { getUser, deleteUser, changeLogin, changeSettings, subscribe, getFollowers, getSubs };
+
+export { getUser, deleteUser, changeLogin, changeSettings, subscribe, getFollowers, getSubs, getUserList };
