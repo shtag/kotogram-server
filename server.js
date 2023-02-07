@@ -10,6 +10,17 @@ import { search } from './components/search.js';
 export const app = Express();
 app.use(Express.json());
 
+import cors from 'cors';
+
+console.log(cors)
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
+
 export const users = data.users;
 
 app.get('/', (req, res) => res.json(data));
