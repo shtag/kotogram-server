@@ -4,7 +4,7 @@ import data from './data.js';
 import './components/auth.js';
 import { login, isSessionActive, signup, logout } from './components/auth.js';
 import { changeLogin, changeSettings, deleteUser, getFollowers, getSubs, getUser, getUserList, subscribe } from './components/users.js';
-import { addComment, getFeed, getPost, getRecomendation, like, likeComment, newPost, removeComment } from './components/posts.js';
+import { addComment, getFeed, getPost, getRecomendation, like, likeComment, newPost, removeComment, removePost } from './components/posts.js';
 import { search } from './components/search.js';
 
 export const app = Express();
@@ -39,6 +39,7 @@ app.patch('/user/:id', changeLogin);
 app.patch('/user/settings/:id', changeSettings);
 
 app.post('/post', newPost);
+app.delete('/post/:postId', removePost);
 app.post('/like/:id', like);
 app.post('/comment/:postId', addComment);
 app.delete('/comment/:postId', removeComment);

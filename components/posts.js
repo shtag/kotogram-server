@@ -18,6 +18,18 @@ const newPost = (req, res) => {
     }
 };
 
+const removePost = (req, res) => {
+    const user = users.find(el => el.sessions.includes(req.body.sessionId));
+    const post = posts.find(post => post.id === +req.params.postId);
+    if (user.username === post.author) {
+        const id = +req.params.postId;
+        posts.splice(id - 1, 1);
+        res.status(200).json(post).send();
+    } else {
+        res.status(404).send('Post not found');
+    }
+};
+
 const like = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     const post = posts.find(post => post.id === +req.params.id);
@@ -107,4 +119,4 @@ const getRecomendation = (req, res) => {
     }
 }
 
-export { newPost, like, addComment, removeComment, getPost, likeComment, getFeed, getRecomendation };
+export { newPost, like, addComment, removeComment, getPost, likeComment, getFeed, getRecomendation, removePost };

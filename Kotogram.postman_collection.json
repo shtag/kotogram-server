@@ -492,12 +492,69 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sessionId\": \"$2b$10$NhL.XLXwthdA4kACTPIJg.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/post/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Auth",
 			"item": [
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"shtag\",\r\n    \"sessionId\": \"$2b$10$NhL.XLXwthdA4kACTPIJg.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Login",
 					"request": {
@@ -584,34 +641,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Logout",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"shtag\",\r\n    \"sessionId\": \"$2b$10$NhL.XLXwthdA4kACTPIJg.\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/logout",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"logout"
-					]
-				}
-			},
-			"response": []
 		},
 		{
 			"name": "Get full data",
