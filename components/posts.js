@@ -69,13 +69,9 @@ const getPost =  (req, res) => {
 const likeComment =  (req, res) => {
     const post = posts.find(post => post.id === +req.params.id);
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
-    console.log(user)
     const comment = post.comments.find(el => el.id === +req.body.commentId);
-    console.log(post)
-    console.log(comment)
     if (post) {
         const id = comment.likes.indexOf(user.username);
-        console.log(id);
         if(id >= 0) {
             comment.likes.splice(id - 1, 1);
         } else {
@@ -100,9 +96,10 @@ const getFeed = (req, res) => {
 }
 const getRecomendation = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
+    const currPosts = [...posts].filter(item => item.author !== user.username);
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
-    const feed = posts.sort((a,b) => Math.random() - Math.random()).sort((a,b) => b.id - a.id).splice(from, to)
+    const feed = currPosts.sort((a,b) => Math.random() - Math.random()).slice(from, to).sort((a,b) => b.id - a.id)
     if (feed) {
         res.status(200).json(feed).send();
     } else {

@@ -12,7 +12,6 @@ app.use(Express.json());
 
 import cors from 'cors';
 
-console.log(cors)
 const corsOptions ={
    origin:'*', 
    credentials:true,            //access-control-allow-credentials:true
