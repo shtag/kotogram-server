@@ -41,7 +41,7 @@ const changeLogin = (req, res) => {
         if (req.body.password) {
             user.password = req.body.password;
         }
-        res.status(200).send();
+        res.status(200).json({"username":user.username}).send();
         } else {
             res.status(400).send("wrong sessionId");
         }
@@ -108,7 +108,7 @@ const getUserList = (req, res) => {
         const userList = users.filter(user => list.includes(user.username));
         res.status(200).json(userList).send();
     } else {
-        res.status(404).send("User not found");
+        res.status(404).send("User not found"); 
     }
 };
 
