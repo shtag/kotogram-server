@@ -45,8 +45,8 @@ app.post('/comment/:postId', addComment);
 app.delete('/comment/:postId', removeComment);
 
 app.get('/post', (req, res) => res.json(data.posts));
-app.get('/feed', getFeed);
-app.get('/recomendation', getRecomendation);
+app.post('/feed', getFeed);
+app.post('/recomendation', getRecomendation);
 app.get('/post/:id', getPost);
 app.patch('/post/:id', likeComment);
 
@@ -56,6 +56,6 @@ app.get('/search', search);
 app.post('/subscribe', subscribe);
 app.get('/subscriptions/:id', getSubs);
 app.get('/followers/:id', getFollowers);
-app.get('/userlist', getUserList);
+app.post('/userlist', getUserList);
 
 app.listen(3000);
