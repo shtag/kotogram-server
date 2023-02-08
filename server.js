@@ -50,7 +50,7 @@ app.post('/recomendation', getRecomendation);
 app.get('/post/:id', getPost);
 app.patch('/post/:id', likeComment);
 
-app.get('/search', search);
+app.post('/search', search);
 
 
 app.post('/subscribe', subscribe);
