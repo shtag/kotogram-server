@@ -1,4 +1,8 @@
+import { hash } from 'bcrypt';
+import data from '../data.js';
 import { app, users } from '../server.js';
+
+let posts = data.posts;
 
 const getUser = (req, res) => {
     let user;
@@ -15,15 +19,39 @@ const getUser = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
+    const user = users.find(el => el.sessions.includes(req.body.sessionId));
     let id;
     for (let i = 0; i < users.length; i++) {
         if(users[i].id === +req.params.id) {
             id = i;
         }
     }
-    if (id !== undefined && users[id].sessions.includes(req.body.sessionId)) {
+    if (id !== undefined && user) {
+        for(let i = 0; i < users.length; i++) {
+            const ind = users[i].subscriptions.indexOf(user.id)
+            if(ind >= 0){
+                users[i].subscriptions.splice(ind, 1);
+            }
+        }
+        const filtredPosts = posts.filter(pos => pos.author !== user.id);
+        data.posts = filtredPosts;
+        for(let i = 0; i < data.posts.length; i++) {
+            const indOflike = data.posts[i].likes.indexOf(user.id)
+            if(indOflike >= 0){
+                data.posts[i].likes.splice(indOflike, 1);
+            }
+            const comments = data.posts[i].comments.filter(com => com.author !== user.id);
+            data.posts[i].comments = comments;
+            for(let j = 0; j < data.posts[i].comments.length; j++) {
+                const indOflikeCom = data.posts[i].comments[j].likes.indexOf(user.id)
+                if(indOflikeCom >= 0){
+                    data.posts[i].comments[j].likes.splice(indOflikeCom, 1);
+                }
+            }
+
+        }
         users.splice(id, 1);
-        res.status(200).send();
+        res.status(200).send('success');
     } else {
         res.status(404).send();
     }
@@ -31,21 +59,22 @@ const deleteUser = (req, res) => {
 
 
 
-const changeLogin = (req, res) => {
+const changeLogin = async (req, res) => {
     const user = users.find((user) => user.id === Number(req.params.id));
     if (user) {
         if (user.sessions.includes(req.body.sessionId)) {
-            if (req.body.username) {
-            user.username = req.body.username
-        }
-        if (req.body.password) {
-            user.password = req.body.password;
-        }
-        res.status(200).json({"username":user.username}).send();
+            if (!users.find(i => i.username === (req.body.username))) {
+                user.username = req.body.username
+                if (req.body.password) {
+                    user.password = await hash(req.body.password, 10);
+                }
+                res.status(200).json({"username":user.username}).send();
+            } else {
+                res.status(403).send("username already exist");
+            }
         } else {
             res.status(400).send("wrong sessionId");
         }
-        
     } else {
         res.status(404).send();
     }
@@ -69,11 +98,11 @@ const subscribe = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     const userToSub = users.find(el => el.username === req.body.username)
     if (user && userToSub) {
-        if(user.subscriptions.includes(userToSub.username)) {
-            const id = user.subscriptions.indexOf(userToSub.username);
+        if(user.subscriptions.includes(userToSub.id)) {
+            const id = user.subscriptions.indexOf(userToSub.id);
             user.subscriptions.splice(id, 1);
         } else {
-            user.subscriptions.push(userToSub.username)
+            user.subscriptions.push(userToSub.id)
         }
         res.status(200).json(user).send();
     } else {
@@ -85,7 +114,7 @@ const getSubs = (req, res) => {
     const user = users.find(el => el.id === +req.params.id);
     console.log(req.params.id)
     if (user) {
-        const subs = users.filter(us => user.subscriptions.includes(us.username));
+        const subs = users.filter(us => user.subscriptions.includes(us.id));
         res.status(200).json(subs).send();
     } else {
         res.status(404).send("User not found");
@@ -95,7 +124,7 @@ const getSubs = (req, res) => {
 const getFollowers = (req, res) => {
     const user = users.find(el => el.id === +req.params.id);
     if (user) {
-        const followers = users.filter(us => us.subscriptions.includes(user.username));
+        const followers = users.filter(us => us.subscriptions.includes(user.id));
         res.status(200).json(followers).send();
     } else {
         res.status(404).send("User not found");
@@ -111,6 +140,15 @@ const getUserList = (req, res) => {
         res.status(404).send("User not found"); 
     }
 };
+const getUserListId = (req, res) => {
+    const list = req.body.list;
+    if (list) {
+        const userList = users.filter(user => list.includes(user.id));
+        res.status(200).json(userList).send();
+    } else {
+        res.status(404).send("User not found"); 
+    }
+};
 
 
-export { getUser, deleteUser, changeLogin, changeSettings, subscribe, getFollowers, getSubs, getUserList };
+export { getUser, deleteUser, changeLogin, changeSettings, subscribe, getFollowers, getSubs, getUserList, getUserListId };

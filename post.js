@@ -9,7 +9,7 @@ class Post {
         Post.maxId++;
         this.author = author;
     }
-    static maxId = 1;
+    static maxId = 11;
 }
 
 export default Post;

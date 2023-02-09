@@ -239,6 +239,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get userlist with ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"list\": [1,3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/userlistid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"userlistid"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -406,7 +434,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"sessionId\": \"$2b$10$NhL.XLXwthdA4kACTPIJg.\",\r\n    \"commentId\": 1\r\n}",
+							"raw": "{\r\n    \"sessionId\": \"$2b$10$S.BU8bkwGg5vsZZ5IHIv3e\",\r\n    \"commentId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

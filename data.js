@@ -2,19 +2,35 @@ import { compare, genSalt, hash } from 'bcrypt';
 import Post from './post.js';
 import User from './user.js';
 
-const data = {
+let data = {
     users: [
         {
             id: 1,
             username: 'shtag',
             password: await hash('shtag', 10),
-            subscriptions: ['shtag4', 'shtag2', 'shtag3'],
+            subscriptions: [2,3], // тут в массиве не строки а числа
             sessions: ['$2b$10$NhL.XLXwthdA4kACTPIJg.'],
             settings: {
                 photo: 'https://i.postimg.cc/pVQbx4hN/profile-img.jpg',
                 language: 'en',
                 name: 'Vasyl',
                 descriptionProfile:'I am a nice cat!'
+            }
+        },
+        {
+            id: 2,
+            username: "shtag2",
+            password: "$2b$10$.84C8oCoFv3AE93TQ6yWJOo7fZu1B5.i1lTXeXwveRHL8fd/f0Q.e",
+            profilePosts: [],
+            subscriptions: [3],
+            sessions: [
+                "$2b$10$S.BU8bkwGg5vsZZ5IHIv3e"
+            ],
+            settings: {
+                photo: "",
+                language: "en",
+                name: "shtag2",
+                descriptionProfile: ""
             }
         },
     ],
@@ -24,9 +40,9 @@ const data = {
             "image": "https://i.postimg.cc/90sJyWzX/old-home.jpg",
             "description": "Here is my old apartment",
             "date": 1000167089287,
-            "likes": [],
+            "likes": [],// тут массив id лайкнувших 
             "comments": [],
-            "author": "shtag"
+            "author": 1 // тут id автора
         },
         {
             "id": 2,
@@ -35,7 +51,7 @@ const data = {
             "date": 1235967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 3,
@@ -44,7 +60,7 @@ const data = {
             "date": 1345967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 4,
@@ -53,7 +69,7 @@ const data = {
             "date": 1432967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 5,
@@ -62,7 +78,7 @@ const data = {
             "date": 1543967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 6,
@@ -71,7 +87,7 @@ const data = {
             "date": 1567967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 7,
@@ -80,7 +96,7 @@ const data = {
             "date": 1598967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 8,
@@ -89,7 +105,7 @@ const data = {
             "date": 1623967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 9,
@@ -98,7 +114,7 @@ const data = {
             "date": 1646967689287,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         },
         {
             "id": 10,
@@ -107,7 +123,7 @@ const data = {
             "date": 1675967689288,
             "likes": [],
             "comments": [],
-            "author": "shtag"
+            "author": 1
         }
     ],
 };
@@ -115,13 +131,13 @@ const data = {
 
 for (let i = 0; i < 10; i++) {
     setTimeout(() => {
-        data.posts.push(new Post('someUrl3', 'here is description3 shta', 'shtag2'))
-    }, 1000)
+        data.posts.push(new Post('someUrl3', 'here is description3 shta', 2))
+    }, 100)
 }
 for (let i = 0; i < 10; i++) {
     setTimeout(() => {
-        data.posts.push(new Post(`someUrl${i}`, `here is description №${i}`, 'shtag4'))
-    }, 1000)
+        data.posts.push(new Post(`someUrl${i}`, `here is description №${i}`, 3))
+    }, 300)
 }
 
 export default data;

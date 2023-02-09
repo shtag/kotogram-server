@@ -10,7 +10,7 @@ const posts = data.posts;
 const newPost = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     if (user) {
-        const post = new Post(req.body.image, req.body.description, user.username);
+        const post = new Post(req.body.image, req.body.description, user.id);
         posts.push(post);
         res.status(200).json(post).send();
     } else {
@@ -21,7 +21,7 @@ const newPost = (req, res) => {
 const removePost = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     const post = posts.find(post => post.id === +req.params.postId);
-    if (user.username === post.author) {
+    if (user.id === post.author) {
         const id = +req.params.postId;
         posts.splice(id - 1, 1);
         res.status(200).json(post).send();
@@ -34,11 +34,11 @@ const like = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     const post = posts.find(post => post.id === +req.params.id);
     if (user && post) {
-        const id = post.likes.indexOf(user.username);
+        const id = post.likes.indexOf(user.id);
         if(id >= 0) {
             post.likes.splice(id, 1);
         } else {
-            post.likes.push(user.username);
+            post.likes.push(user.id);
         }
         res.status(200).json(post).send();
     } else {
@@ -50,7 +50,7 @@ const addComment = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     const post = posts.find(post => post.id === +req.params.postId);
     if (user && post) {
-        const comment = new Comment(req.body.text, user.username, post.comments.length + 1)
+        const comment = new Comment(req.body.text, user.id, post.comments.length + 1)
         post.comments.push(comment);
         res.status(200).json(post).send();
     } else {
@@ -83,13 +83,17 @@ const likeComment =  (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
     const comment = post.comments.find(el => el.id === +req.body.commentId);
     if (post) {
-        const id = comment.likes.indexOf(user.username);
-        if(id >= 0) {
-            comment.likes.splice(id - 1, 1);
+        if (comment) {
+            const id = comment.likes.indexOf(user.id);
+            if(id >= 0) {
+                comment.likes.splice(id - 1, 1);
+            } else {
+                comment.likes.push(user.id);
+            }
+            res.status(200).json(post).send();
         } else {
-            comment.likes.push(user.username);
+            res.status(404).send('Comment not found');
         }
-        res.status(200).json(post).send();
     } else {
         res.status(404).send('Post not found');
     }
@@ -108,7 +112,7 @@ const getFeed = (req, res) => {
 }
 const getRecomendation = (req, res) => {
     const user = users.find(el => el.sessions.includes(req.body.sessionId));
-    const currPosts = [...posts].filter(item => item.author !== user.username);
+    const currPosts = [...posts].filter(item => item.author !== user.id);
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
     const feed = currPosts.sort((a,b) => Math.random() - Math.random()).slice(from, to).sort((a,b) => b.id - a.id)
@@ -121,7 +125,7 @@ const getRecomendation = (req, res) => {
 
 const getUserPosts = (req, res) => {
     const user = users.find(el => el.id === +req.params.id);
-    const postList = posts.filter(po => po.author === user.username)
+    const postList = posts.filter(po => po.author === user.id)
     if (postList && user) {
         res.status(200).json(postList).send();
     } else {

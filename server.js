@@ -3,7 +3,7 @@ import User from './user.js';
 import data from './data.js';
 import './components/auth.js';
 import { login, isSessionActive, signup, logout } from './components/auth.js';
-import { changeLogin, changeSettings, deleteUser, getFollowers, getSubs, getUser, getUserList, subscribe } from './components/users.js';
+import { changeLogin, changeSettings, deleteUser, getFollowers, getSubs, getUser, getUserList, getUserListId, subscribe } from './components/users.js';
 import { addComment, getFeed, getPost, getRecomendation, getUserPosts, like, likeComment, newPost, removeComment, removePost } from './components/posts.js';
 import { search } from './components/search.js';
 
@@ -58,5 +58,6 @@ app.post('/subscribe', subscribe);
 app.get('/subscriptions/:id', getSubs);
 app.get('/followers/:id', getFollowers);
 app.post('/userlist', getUserList);
+app.post('/userlistid', getUserListId);
 
 app.listen(3000);
