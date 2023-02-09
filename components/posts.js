@@ -119,4 +119,14 @@ const getRecomendation = (req, res) => {
     }
 }
 
-export { newPost, like, addComment, removeComment, getPost, likeComment, getFeed, getRecomendation, removePost };
+const getUserPosts = (req, res) => {
+    const user = users.find(el => el.id === +req.params.id);
+    const postList = posts.filter(po => po.author === user.username)
+    if (postList && user) {
+        res.status(200).json(postList).send();
+    } else {
+        res.status(404).send('Feed not found');
+    }
+}
+
+export { newPost, like, addComment, removeComment, getPost, likeComment, getFeed, getRecomendation, removePost, getUserPosts };

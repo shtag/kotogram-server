@@ -512,6 +512,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get all post uder with id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/userposts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"userposts",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
