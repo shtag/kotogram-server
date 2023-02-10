@@ -72,7 +72,7 @@ const removeComment = (req, res) => {
 const getPost =  (req, res) => {
     const post = posts.find(post => post.id === +req.params.id);
     if (post) {
-        res.status(200).json(post).send();
+        res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
     }
@@ -127,7 +127,7 @@ const getUserPosts = (req, res) => {
     const user = users.find(el => el.id === +req.params.id);
     const postList = posts.filter(po => po.author === user.id)
     if (postList && user) {
-        res.status(200).json(postList).send();
+        res.status(200).send(postList);
     } else {
         res.status(404).send('Feed not found');
     }
