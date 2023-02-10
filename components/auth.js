@@ -26,7 +26,7 @@ const login = async (req, res) => {
             const body = {
                 username: user.username,
                 sessionId: sessionId,
-                access: true,
+                id: user.id,
             };
             res.status(200).json(body).send();
         } else {
@@ -38,7 +38,7 @@ const login = async (req, res) => {
 };
 
 const isSessionActive = async (req, res) => {
-    const user = users.find((el) => el.username === req.body.username);
+    const user = users.find((el) => el.id === +req.body.id);
     if (user) {
         if (user.sessions.includes(req.body.sessionId)) {
             const body = {
@@ -57,7 +57,7 @@ const isSessionActive = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    const user = users.find((el) => el.username === req.body.username);
+    const user = users.find((el) => el.id === +req.body.id);
     if (user) {
         if (user.sessions.includes(req.body.sessionId)) {
             const id = user.sessions.indexOf(req.body.sessionId);
@@ -70,7 +70,5 @@ const logout = async (req, res) => {
         res.status(404).send('User not found');
     }
 };
-
-
 
 export { signup, login, isSessionActive, logout };
