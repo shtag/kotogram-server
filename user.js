@@ -10,12 +10,13 @@ class User {
         User.maxUserId++;
         this.subscriptions = [];
         this.sessions = [];
+        this.favorites = [];
         this.settings = {
             photo: '',
             language: 'en',
             name: name,
-            descriptionProfile:''
-        }
+            descriptionProfile: '',
+        };
     }
 
     static maxUserId = 2;
@@ -26,12 +27,10 @@ class User {
     }
 }
 
-
-// data.users.push(new User('shtag2', await hash('hstag', 10)))
-data.users.push(new User('shtag3', await hash('hstag', 10)))
-data.users.push(new User('shtag4', await hash('hstag', 10)))
-data.users[2].subscriptions.push(1)
-data.users[3].subscriptions.push(1)
-data.users[1].subscriptions.push(1)
+data.users.push(new User('shtag3', await hash('hstag', 10)));
+data.users.push(new User('shtag4', await hash('hstag', 10)));
+data.users[2].subscriptions.push(1);
+data.users[3].subscriptions.push(1);
+data.users[1].subscriptions.push(1);
 
 export default User;
