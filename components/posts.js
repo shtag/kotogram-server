@@ -10,7 +10,7 @@ const newPost = (req, res) => {
     if (user) {
         const post = new Post(req.body.image, req.body.description, user.id);
         posts.push(post);
-        res.status(200).json(post).send();
+        res.status(200).send(post);
     } else {
         res.status(404).send();
     }
@@ -22,7 +22,7 @@ const removePost = (req, res) => {
     if (user.id === post.author) {
         const id = +req.params.postId;
         posts.splice(id - 1, 1);
-        res.status(200).json(post).send();
+        res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
     }
@@ -38,7 +38,7 @@ const like = (req, res) => {
         } else {
             post.likes.push(user.id);
         }
-        res.status(200).json(post).send();
+        res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
     }
@@ -50,7 +50,7 @@ const addComment = (req, res) => {
     if (user && post) {
         const comment = new Comment(req.body.text, user.id, post.comments.length + 1);
         post.comments.push(comment);
-        res.status(200).json(post).send();
+        res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
     }
@@ -62,7 +62,7 @@ const removeComment = (req, res) => {
     if (user && post) {
         const id = +req.body.commentId;
         post.comments.splice(id - 1, 1);
-        res.status(200).json(post).send();
+        res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
     }
@@ -88,7 +88,7 @@ const likeComment = (req, res) => {
             } else {
                 comment.likes.push(user.id);
             }
-            res.status(200).json(post).send();
+            res.status(200).send(post);
         } else {
             res.status(404).send('Comment not found');
         }
@@ -106,7 +106,7 @@ const getFeed = (req, res) => {
         .sort((a, b) => b.id - a.id)
         .splice(from, to);
     if (feed) {
-        res.status(200).json(feed).send();
+        res.status(200).send(feed);
     } else {
         res.status(404).send('Feed not found');
     }
@@ -121,7 +121,7 @@ const getRecomendation = (req, res) => {
         .slice(from, to)
         .sort((a, b) => b.id - a.id);
     if (feed) {
-        res.status(200).json(feed).send();
+        res.status(200).send(feed);
     } else {
         res.status(404).send('Feed not found');
     }

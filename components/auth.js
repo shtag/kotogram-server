@@ -10,7 +10,7 @@ const signup = async (req, res) => {
             username: req.body.username,
             password: req.body.password,
         };
-        res.status(200).json(response).send();
+        res.status(200).send(response);
     } else {
         res.status(400).send('Login already taken');
     }
@@ -28,7 +28,7 @@ const login = async (req, res) => {
                 sessionId: sessionId,
                 id: user.id,
             };
-            res.status(200).json(body).send();
+            res.status(200).send(body);
         } else {
             res.status(400).send();
         }
@@ -44,12 +44,12 @@ const isSessionActive = async (req, res) => {
             const body = {
                 sessionActive: true,
             };
-            res.status(200).json(body).send();
+            res.status(200).send(body);
         } else {
             const body = {
                 sessionActive: false,
             };
-            res.status(400).json(body).send();
+            res.status(400).send(body);
         }
     } else {
         res.status(404).send('User not found');

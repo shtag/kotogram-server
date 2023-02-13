@@ -12,7 +12,7 @@ const getUser = (req, res) => {
         user = users.find((user) => user.username === req.body.username);
     }
     if (user) {
-        res.status(200).json(user).send();
+        res.status(200).send(user);
     } else {
         res.status(404).send();
     }
@@ -65,7 +65,7 @@ const changeLogin = async (req, res) => {
                 if (req.body.password) {
                     user.password = await hash(req.body.password, 10);
                 }
-                res.status(200).json({ username: user.username }).send();
+                res.status(200).send({ username: user.username });
             } else {
                 res.status(403).send('username already exist');
             }
@@ -102,7 +102,7 @@ const subscribe = (req, res) => {
         } else {
             user.subscriptions.push(userToSub.id);
         }
-        res.status(200).json(user).send();
+        res.status(200).send(user);
     } else {
         res.status(404).send();
     }
@@ -113,7 +113,7 @@ const getSubs = (req, res) => {
     console.log(req.params.id);
     if (user) {
         const subs = users.filter((us) => user.subscriptions.includes(us.id));
-        res.status(200).json(subs).send();
+        res.status(200).send(subs);
     } else {
         res.status(404).send('User not found');
     }
@@ -123,7 +123,7 @@ const getFollowers = (req, res) => {
     const user = users.find((el) => el.id === +req.params.id);
     if (user) {
         const followers = users.filter((us) => us.subscriptions.includes(user.id));
-        res.status(200).json(followers).send();
+        res.status(200).send(followers);
     } else {
         res.status(404).send('User not found');
     }
@@ -133,16 +133,17 @@ const getUserList = (req, res) => {
     const list = req.body.list;
     if (list) {
         const userList = users.filter((user) => list.includes(user.username));
-        res.status(200).json(userList).send();
+        res.status(200).send(userList);
     } else {
         res.status(404).send('User not found');
     }
 };
+
 const getUserListId = (req, res) => {
     const list = req.body.list;
     if (list) {
         const userList = users.filter((user) => list.includes(user.id));
-        res.status(200).json(userList).send();
+        res.status(200).send(userList);
     } else {
         res.status(404).send('User not found');
     }
