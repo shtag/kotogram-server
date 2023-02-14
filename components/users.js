@@ -110,7 +110,6 @@ const subscribe = (req, res) => {
 
 const getSubs = (req, res) => {
     const user = users.find((el) => el.id === +req.params.id);
-    console.log(req.params.id);
     if (user) {
         const subs = users.filter((us) => user.subscriptions.includes(us.id));
         res.status(200).send(subs);
