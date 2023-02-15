@@ -102,7 +102,7 @@ const getFeed = (req, res) => {
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
     const feed = posts
-        .filter((post) => user.subscriptions.includes(post.author))
+        .filter((post) => user.subscriptions.includes(post.author) || user.id === post.author)
         .sort((a, b) => b.id - a.id)
         .splice(from, to);
     if (feed) {
