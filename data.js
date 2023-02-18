@@ -27,7 +27,7 @@ let data = {
             favorites: [1, 5, 7],
             sessions: ['$2b$10$S.BU8bkwGg5vsZZ5IHIv3e'],
             settings: {
-                photo: '',
+                photo: 'https://i.pinimg.com/564x/50/72/b9/5072b947d36975e9890344aec5757700.jpg',
                 language: 'en',
                 name: 'shtag2',
                 descriptionProfile: '',
