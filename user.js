@@ -12,7 +12,7 @@ class User {
         this.sessions = [];
         this.favorites = [];
         this.settings = {
-            photo: '',
+            photo: 'https://i.postimg.cc/6pjZSpW8/base.jpg',
             language: 'en',
             name: name,
             descriptionProfile: '',

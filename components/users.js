@@ -61,7 +61,9 @@ const changeLogin = async (req, res) => {
     if (user) {
         if (user.sessions.includes(req.body.sessionId)) {
             if (!users.find((i) => i.username === req.body.username)) {
-                user.username = req.body.username;
+                if (req.body.username) {
+                    user.username = req.body.username;
+                }
                 if (req.body.password) {
                     user.password = await hash(req.body.password, 10);
                 }
@@ -81,7 +83,12 @@ const changeSettings = (req, res) => {
     const user = users.find((user) => user.id === Number(req.params.id));
     if (user && user.sessions.includes(req.body.sessionId)) {
         const settings = req.body.settings;
-        if (settings.photo) user.settings.photo = settings.photo;
+        if (settings.photo) {
+            user.settings.photo = settings.photo;
+            if (settings.photo === '') {
+                user.settings.photo = 'https://i.postimg.cc/6pjZSpW8/base.jpg';
+            }
+        }
         if (settings.language) user.settings.language = settings.language;
         if (settings.name) user.settings.name = settings.name;
         if (settings.descriptionProfile)
