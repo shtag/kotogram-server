@@ -19,7 +19,7 @@ class User {
         };
     }
 
-    static maxUserId = 2;
+    static maxUserId = 3;
     get followers() {
         const users = data.users;
         const followers = users.filter((user) => user.followers.includes(this.name));
