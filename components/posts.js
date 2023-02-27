@@ -101,12 +101,14 @@ const getFeed = (req, res) => {
     const user = users.find((el) => el.sessions.includes(req.body.sessionId));
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
-    const feed = posts
-        .filter((post) => user.subscriptions.includes(post.author) || user.id === post.author)
-        .sort((a, b) => b.id - a.id)
-        .splice(from, to);
-    if (feed) {
-        res.status(200).send(feed);
+    if (user) {
+        const feed = posts
+            .filter((post) => user.subscriptions.includes(post.author) || user.id === post.author)
+            .sort((a, b) => b.id - a.id)
+            .splice(from, to);
+        if (feed) {
+            res.status(200).send(feed);
+        }
     } else {
         res.status(404).send('Feed not found');
     }
