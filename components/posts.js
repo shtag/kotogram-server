@@ -22,7 +22,7 @@ const removePost = (req, res) => {
     if (user.id === post.author) {
         const id = +req.params.postId;
         posts.splice(id - 1, 1);
-        res.status(200).send(post);
+        res.status(200).send(posts);
     } else {
         res.status(404).send('Post not found');
     }
