@@ -110,7 +110,7 @@ const getFeed = (req, res) => {
             res.status(200).send(feed);
         }
     } else {
-        res.status(404).send('Feed not found');
+        res.status(404).send();
     }
 };
 const getRecomendation = (req, res) => {
@@ -125,7 +125,7 @@ const getRecomendation = (req, res) => {
     if (feed) {
         res.status(200).send(feed);
     } else {
-        res.status(404).send('Feed not found');
+        res.status(404).send();
     }
 };
 
