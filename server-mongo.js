@@ -1,29 +1,22 @@
-import { MongoClient } from 'mongodb';
-const client = new MongoClient('mongodb+srv://vasyakanishchev:shtag1861@kotogram.zoyelpn.mongodb.net/?retryWrites=true&w=majority');
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
-async function addNewUsers(user) {
-    await client.connect();
-    console.log('connected')
-    const users = client.db().collection('users');
-    await users.insertOne(user)
-    maxId++;
+import fs from 'fs';
+import { dataEnd, dataStart } from './const.js';
+import data from './data.js';
+
+const fileName = 'data.js';
+const content = 'This is the content of my file.';
+
+function saveData(data) {
+    const text = `${dataStart}${data}${dataEnd}`;
+    fs.writeFileSync(fileName, text);
+    // await fs.writeFile(fileName, text, (err) => {
+    //     if (err) {
+    //         console.error(err);
+    //         return;
+    //     }
+    //     console.log(`File ${fileName} has been written successfully.`);
+    // });
 }
-async function getUsers() {
-    await client.connect();
-    console.log('connected')
-    const users = client.db().collection('users');
-    const usersLength = await users.countDocuments()
-    console.log(usersLength)
-    const coll = await client.db().listCollections()
-    console.log(coll)
-}
-app.post('/usersasdasdasdasdasdasdas', async (req, res) => {
-    const user = { 
-        id: data.maxId, 
-        login: req.body.login, 
-        password: req.body.password 
-    }
-    data.maxId++;
-    addNewUsers(user);
-    res.status(200).json(users).send();
-})
+
+export default saveData;

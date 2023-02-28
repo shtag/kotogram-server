@@ -1,6 +1,8 @@
+import data from './data.js';
+
 class Post {
     constructor(url, description, author) {
-        this.id = Post.maxId;
+        this.id = data.posts[data.posts.length - 1].id;
         this.image = url;
         this.description = description;
         this.date = Date.now();
@@ -13,5 +15,3 @@ class Post {
 }
 
 export default Post;
-
-

@@ -10,6 +10,8 @@ const newPost = (req, res) => {
     if (user) {
         const post = new Post(req.body.image, req.body.description, user.id);
         posts.push(post);
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(post);
     } else {
         res.status(404).send();
@@ -22,6 +24,8 @@ const removePost = (req, res) => {
     if (user.id === post.author) {
         const id = +req.params.postId;
         posts.splice(id - 1, 1);
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(posts);
     } else {
         res.status(404).send('Post not found');
@@ -38,6 +42,8 @@ const like = (req, res) => {
         } else {
             post.likes.push(user.id);
         }
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
@@ -50,6 +56,8 @@ const addComment = (req, res) => {
     if (user && post) {
         const comment = new Comment(req.body.text, user.id, post.comments.length + 1);
         post.comments.push(comment);
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
@@ -62,6 +70,8 @@ const removeComment = (req, res) => {
     if (user && post) {
         const id = +req.body.commentId;
         post.comments.splice(id - 1, 1);
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
@@ -70,6 +80,8 @@ const removeComment = (req, res) => {
 const getPost = (req, res) => {
     const post = posts.find((post) => post.id === +req.params.id);
     if (post) {
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(post);
     } else {
         res.status(404).send('Post not found');
@@ -88,6 +100,8 @@ const likeComment = (req, res) => {
             } else {
                 comment.likes.push(user.id);
             }
+            const dataCopy = JSON.parse(JSON.stringify(data));
+            saveData(JSON.stringify(dataCopy));
             res.status(200).send(post);
         } else {
             res.status(404).send('Comment not found');
@@ -115,8 +129,6 @@ const getFeed = (req, res) => {
 };
 const getRecomendation = (req, res) => {
     const user = users.find((el) => el.sessions.includes(req.body.sessionId));
-    console.log(req.body.sessionId);
-    console.log(user);
     const currPosts = [...posts].filter((item) => item.author !== user.id);
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
@@ -151,6 +163,8 @@ const addFavorites = (req, res) => {
         } else {
             user.favorites.push(postId);
         }
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(user.favorites);
     } else {
         res.status(404).send('User not found');

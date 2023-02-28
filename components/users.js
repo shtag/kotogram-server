@@ -1,5 +1,6 @@
 import { hash } from 'bcrypt';
 import data from '../data.js';
+import saveData from '../server-mongo.js';
 import { app, users } from '../server.js';
 
 let posts = data.posts;
@@ -50,6 +51,8 @@ const deleteUser = (req, res) => {
             }
         }
         users.splice(id, 1);
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send('success');
     } else {
         res.status(404).send();
@@ -67,6 +70,8 @@ const changeLogin = async (req, res) => {
                 if (req.body.password) {
                     user.password = await hash(req.body.password, 10);
                 }
+                const dataCopy = JSON.parse(JSON.stringify(data));
+                saveData(JSON.stringify(dataCopy));
                 res.status(200).send({ username: user.username });
             } else {
                 res.status(403).send('username already exist');
@@ -91,9 +96,12 @@ const changeSettings = (req, res) => {
         }
         if (settings.language) user.settings.language = settings.language;
         if (settings.name) user.settings.name = settings.name;
-        if (settings.descriptionProfile)
+        if (settings.descriptionProfile) {
             user.settings.descriptionProfile = settings.descriptionProfile;
-        res.status(200).send();
+            const dataCopy = JSON.parse(JSON.stringify(data));
+            saveData(JSON.stringify(dataCopy));
+            res.status(200).send();
+        }
     } else {
         res.status(404).send();
     }
@@ -109,6 +117,8 @@ const subscribe = (req, res) => {
         } else {
             user.subscriptions.push(userToSub.id);
         }
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(user);
     } else {
         res.status(404).send();
@@ -119,6 +129,8 @@ const getSubs = (req, res) => {
     const user = users.find((el) => el.id === +req.params.id);
     if (user) {
         const subs = users.filter((us) => user.subscriptions.includes(us.id));
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(subs);
     } else {
         res.status(404).send('User not found');

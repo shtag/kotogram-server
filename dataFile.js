@@ -9,7 +9,7 @@ let data = {
             username: 'shtag',
             password: '$2b$10$H3UHQURIEqdNaoQgVPaXpuugOFZXNfbCj/4AikUf79a5DO9FuHYkW',
             subscriptions: [2, 3],
-            sessions: ['$2b$10$NhL.XLXwthdA4kACTPIJg.', '$2b$10$iUzRpRZ9pq4pkuRemh09He'],
+            sessions: ['$2b$10$NhL.XLXwthdA4kACTPIJg.'],
             favorites: [1, 5, 7],
             settings: {
                 photo: 'https://i.postimg.cc/pVQbx4hN/profile-img.jpg',
@@ -23,7 +23,7 @@ let data = {
             username: 'shtag2',
             password: '$2b$10$.84C8oCoFv3AE93TQ6yWJOo7fZu1B5.i1lTXeXwveRHL8fd/f0Q.e',
             profilePosts: [],
-            subscriptions: [3, 1],
+            subscriptions: [3, 1, 1, 1, 1, 1],
             favorites: [1, 5, 7],
             sessions: ['$2b$10$S.BU8bkwGg5vsZZ5IHIv3e'],
             settings: {
@@ -38,7 +38,7 @@ let data = {
             username: 'shtag3',
             password: '$2b$10$2YHOQJ349flKDZduK.sAJeosEh71YFo/YMdNuuHqIyIDvdTkYqmx2',
             profilePosts: [],
-            subscriptions: [1],
+            subscriptions: [1, 1, 1, 1, 1],
             sessions: [],
             favorites: [],
             settings: {
@@ -53,7 +53,7 @@ let data = {
             username: 'shtag4',
             password: '$2b$10$fEBddtzr.5kezxDHAHTFRujE6OGcTpBYqgIMmx4WdA/FwJltbJXT2',
             profilePosts: [],
-            subscriptions: [1],
+            subscriptions: [1, 1, 1, 1, 1],
             sessions: [],
             favorites: [],
             settings: {
@@ -64,9 +64,9 @@ let data = {
             },
         },
         {
-            id: 5,
-            username: 'user1',
-            password: '$2b$10$ECNbB3lHCTuqADIVy9m5juG2MCKU8i8TrrY9Lj2Pc8k7LWzE0ayO6',
+            id: 3,
+            username: 'newProfile4',
+            password: '$2b$10$mYWp6o1tR7vpUjHBT6viI.g0O2JpZ5tckaoXMvGhnVOZkDNls57mG',
             profilePosts: [],
             subscriptions: [],
             sessions: [],
@@ -74,25 +74,11 @@ let data = {
             settings: {
                 photo: 'https://i.postimg.cc/6pjZSpW8/base.jpg',
                 language: 'en',
-                name: 'user1',
+                name: 'newProfile4',
                 descriptionProfile: '',
             },
         },
-        {
-            id: 6,
-            username: 'user2',
-            password: '$2b$10$qD4SQomOL6dZSm9OMOIV8.BaWjcmpn6gF2ID4ZWSAXo4RPKGb0any',
-            profilePosts: [],
-            subscriptions: [],
-            sessions: [],
-            favorites: [],
-            settings: {
-                photo: 'https://i.postimg.cc/6pjZSpW8/base.jpg',
-                language: 'en',
-                name: 'user2',
-                descriptionProfile: '',
-            },
-        },
+        { username: 'newProfile4', password: 'qwerty' },
     ],
     posts: [
         {

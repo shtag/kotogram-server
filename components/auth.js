@@ -1,4 +1,7 @@
 import { compare, genSalt, hash } from 'bcrypt';
+import data from '../data.js';
+import dataFile from '../dataFile.js';
+import saveData from '../server-mongo.js';
 import { users } from '../server.js';
 import User from '../user.js';
 
@@ -10,6 +13,8 @@ const signup = async (req, res) => {
             username: req.body.username,
             password: req.body.password,
         };
+        const dataCopy = JSON.parse(JSON.stringify(data));
+        saveData(JSON.stringify(dataCopy));
         res.status(200).send(response);
     } else {
         res.status(400).send('Login already taken');
@@ -28,6 +33,8 @@ const login = async (req, res) => {
                 sessionId: sessionId,
                 id: user.id,
             };
+            const dataCopy = JSON.parse(JSON.stringify(data));
+            saveData(JSON.stringify(dataCopy));
             res.status(200).send(body);
         } else {
             res.status(400).send();
@@ -39,6 +46,8 @@ const login = async (req, res) => {
 
 const isSessionActive = async (req, res) => {
     const user = users.find((el) => el.id === +req.body.id);
+    console.log(user);
+    console.log(req.body.sessionId);
     if (user) {
         if (user.sessions.includes(req.body.sessionId)) {
             const body = {
@@ -62,6 +71,8 @@ const logout = async (req, res) => {
         if (user.sessions.includes(req.body.sessionId)) {
             const id = user.sessions.indexOf(req.body.sessionId);
             user.sessions.splice(id, 1);
+            const dataCopy = JSON.parse(JSON.stringify(data));
+            saveData(JSON.stringify(dataCopy));
             res.status(200).send('logout');
         } else {
             res.status(400).json(body).send('Session is not active');

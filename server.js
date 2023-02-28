@@ -1,3 +1,4 @@
+import './server-mongo.js';
 import Express from 'express';
 import User from './user.js';
 import data from './data.js';
