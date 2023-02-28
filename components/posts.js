@@ -24,8 +24,8 @@ const removePost = (req, res) => {
     const post = posts.find((post) => post.id === +req.params.postId);
     if (user.id === post.author) {
         const id = +req.params.postId;
-        posts.splice(id - 1, 1);
         const dataCopy = JSON.parse(JSON.stringify(data));
+        dataCopy.splice(id - 1, 1);
         saveData(JSON.stringify(dataCopy));
         res.status(200).send(posts);
     } else {
@@ -116,6 +116,7 @@ const getFeed = (req, res) => {
     const user = users.find((el) => el.sessions.includes(req.body.sessionId));
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
+    console.log(from, to);
     if (user) {
         const feed = posts
             .filter((post) => user.subscriptions.includes(post.author) || user.id === post.author)

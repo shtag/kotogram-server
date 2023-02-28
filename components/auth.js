@@ -46,8 +46,6 @@ const login = async (req, res) => {
 
 const isSessionActive = async (req, res) => {
     const user = users.find((el) => el.id === +req.body.id);
-    console.log(user);
-    console.log(req.body.sessionId);
     if (user) {
         if (user.sessions.includes(req.body.sessionId)) {
             const body = {
