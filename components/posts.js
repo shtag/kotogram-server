@@ -115,6 +115,8 @@ const getFeed = (req, res) => {
 };
 const getRecomendation = (req, res) => {
     const user = users.find((el) => el.sessions.includes(req.body.sessionId));
+    console.log(req.body.sessionId);
+    console.log(user);
     const currPosts = [...posts].filter((item) => item.author !== user.id);
     const from = req.body.limit * req.body.page - req.body.limit;
     const to = req.body.limit * req.body.page;
@@ -135,7 +137,7 @@ const getUserPosts = (req, res) => {
     if (postList && user) {
         res.status(200).send(postList);
     } else {
-        res.status(404).send('Feed not found');
+        res.status(404).send();
     }
 };
 
